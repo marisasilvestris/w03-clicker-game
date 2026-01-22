@@ -6,14 +6,15 @@
   font-family: sans-serif;
   list-style-type: none;
 }
-*:focus {
+/* :focus {
   border: 10px solid white;
-}
+} */
 h1 {
   position: absolute;
   top: 0;
   width: 100%;
   text-align: center;
+  z-index: 1;
 }
 h2 {
   padding: 5px 15px;
@@ -36,6 +37,12 @@ h2 {
   justify-content: space-between;
   height: 100%;
   background-color: thistle;
+  position: relative;
+}
+#mainView #sideViewBtn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 #clickerButton {
   width: 250px;
@@ -44,7 +51,7 @@ h2 {
 #clickerButton:active {
   background-color: white;
 }
-#mainView #counter {
+#mainView #cookieCounter {
   height: 200px;
   font-size: 3em;
   background: black;
@@ -101,7 +108,7 @@ h2 {
     flex-flow: column-reverse;
   }
   #mainView #sideViewBtn {
-    display: static;
+    display: initial;
   }
   #clickerGame #sideView {
     position: absolute;

@@ -31,18 +31,18 @@ function gameInit() {
 
   function loadStats() {
     let cookieSaved = Number(localStorage.getItem("cookieCount"));
+    let powerSaved = Number(localStorage.getItem("clickPower"));
+    let autoSaved = Number(localStorage.getItem("autoClick"));
     if (typeof cookieSaved === "number") {
       cookieCount = cookieSaved;
     } else {
       cookieCount = 0;
     }
-    let powerSaved = Number(localStorage.getItem("clickPower"));
     if (typeof powerSaved === "number") {
       clickPower = powerSaved;
     } else {
       clickPower = 1;
     }
-    let autoSaved = Number(localStorage.getItem("autoClick"));
     if (typeof autoSaved === "number") {
       autoClick = autoSaved;
     } else {
@@ -52,7 +52,7 @@ function gameInit() {
   }
 
   loadStats();
-  const cookieCountDisplay = document.getElementById(`counter`);
+  const cookieCountDisplay = document.getElementById(`cookieCounter`);
   cookieCountDisplay.textContent = `${cookieCount}`;
 
   function cookieUpdate(e) {
@@ -61,6 +61,12 @@ function gameInit() {
     console.log(cookieCount);
   }
   clickerButton.addEventListener(`click`, cookieUpdate.bind(null, 1));
+
+  const clrBtn = document.getElementById(`clrBtn`);
+  clrBtn.addEventListener(`click`, () => {
+    cookieCount = 0;
+    cookieUpdate(0);
+  });
 }
 function gameUpdate() {
   function saveStats() {
