@@ -117,3 +117,21 @@ h2 {
     display: none;
   }
 }
+
+/* test stuff */
+.test {
+}
+#cheatBtns {
+  position: absolute;
+  top: 64px;
+  left: 0;
+  display: flex;
+  flex-flow: column nowrap;
+}
+#cheatBtns button {
+  width: 128px;
+  height: 64px;
+}
+.powerup:active {
+  background-color: white;
+}

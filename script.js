@@ -1,81 +1,101 @@
 console.log(`meow!`);
 
 const clickerButton = document.getElementById(`clickerButton`);
+const cookieCountDisplay = document.getElementById(`cookieCounter`);
+const shopList = document.getElementById(`shopList`);
 
-let cookieCount = 0;
-let clickPower = 1;
-let autoClick = 0;
+const cookiesUp = document.getElementById(`cookiesUp`);
+const powerUp = document.getElementById(`powerUp`);
+const autoUp = document.getElementById(`autoUp`);
 
-function gameInit() {
+let cookieCount;
+let clickPower;
+let autoClickPower;
+
+function loadStats() {
+  cookieCount = JSON.parse(localStorage.getItem(`cookieCount`)) || 0;
+  clickPower = JSON.parse(localStorage.getItem(`clickPower`)) || 1;
+  autoClickPower = JSON.parse(localStorage.getItem(`autoClickPower`)) || 0;
+  // console.log(`loaded ${cookieCount}, ${clickPower}, ${autoClickPower}`);
+}
+function saveStats() {
+  localStorage.setItem(`cookieCount`, cookieCount);
+  localStorage.setItem(`clickPower`, clickPower);
+  localStorage.setItem(`autoClickPower`, autoClickPower);
+  console.log(
+    `saved stats! cookies:${cookieCount}, click power: ${clickPower}, autoclick power: ${autoClickPower}`,
+  );
+}
+function cookieUpdate(e) {
+  cookieCount = cookieCount + e;
+  cookieCountDisplay.textContent = `${cookieCount}`;
+}
+
+async function gameInit() {
   async function fetchUpgrades(u) {
-    // await will wait for real data, rather than accept a Promise for it
-    // await only works in an async function?
     const response = await fetch(u);
-    // fetch will only request headers
     const jsonData = await response.json();
-    return jsonData;
+    jsonData.forEach((element) => {
+      const listItem = document.createElement(`li`);
+      const listItemBtn = document.createElement(`button`);
+      listItemBtn.classList = `shop-item`;
+      listItemBtn.textContent = `${element.name}`;
+      listItem.appendChild(listItemBtn);
+      shopList.appendChild(listItem);
+    });
   }
-
-  upgradeList = fetchUpgrades(
+  let upgradeList = fetchUpgrades(
     `https://cookie-upgrade-api.vercel.app/api/upgrades`,
   );
-  console.log(upgradeList);
 
   // function buyItem() {
   //   if (cookieCount < itemCost) {
   //     console.log(`not enough bucks, baby`);
   //   } else {
-  //     autoClick = autoClick;
+  //     autoClickPower = autoClickPower + itemIncrease;
   //   }
   // }
 
-  function loadStats() {
-    let cookieSaved = Number(localStorage.getItem("cookieCount"));
-    let powerSaved = Number(localStorage.getItem("clickPower"));
-    let autoSaved = Number(localStorage.getItem("autoClick"));
-    if (typeof cookieSaved === "number") {
-      cookieCount = cookieSaved;
-    } else {
-      cookieCount = 0;
-    }
-    if (typeof powerSaved === "number") {
-      clickPower = powerSaved;
-    } else {
-      clickPower = 1;
-    }
-    if (typeof autoSaved === "number") {
-      autoClick = autoSaved;
-    } else {
-      autoClick = 0;
-    }
-    console.log(`loaded ${cookieSaved}, ${powerSaved}, ${autoSaved}`);
-  }
-
-  loadStats();
-  const cookieCountDisplay = document.getElementById(`cookieCounter`);
-  cookieCountDisplay.textContent = `${cookieCount}`;
-
-  function cookieUpdate(e) {
-    cookieCount = cookieCount + Number(e);
-    cookieCountDisplay.textContent = `${cookieCount}`;
-    console.log(cookieCount);
-  }
-  clickerButton.addEventListener(`click`, cookieUpdate.bind(null, 1));
+  clickerButton.addEventListener(`click`, () => {
+    cookieUpdate(clickPower);
+  });
 
   const clrBtn = document.getElementById(`clrBtn`);
   clrBtn.addEventListener(`click`, () => {
     cookieCount = 0;
+    clickPower = 1;
+    autoClickPower = 0;
     cookieUpdate(0);
+    console.log(`poof! numbers reset`);
   });
+  function cheatBtns() {
+    cookiesUp.addEventListener(`click`, () => {
+      cookieCount = cookieCount + 10000;
+    });
+    powerUp.addEventListener(`click`, () => {
+      clickPower = clickPower + 100;
+    });
+    autoUp.addEventListener(`click`, () => {
+      autoClickPower = autoClickPower + 10;
+    });
+    cookiesUp.textContent = `cookies+10000: ${cookieCount || 0}`;
+    powerUp.textContent = `clickpwr+100: ${clickPower || 0}`;
+    autoUp.textContent = `autopwr+10: ${autoClickPower || 0}`;
+  }
+  cheatBtns();
+
+  loadStats();
+  cookieUpdate(0);
 }
 function gameUpdate() {
-  function saveStats() {
-    localStorage.setItem("cookieCount", cookieCount);
-    localStorage.setItem("clickPower", clickPower);
-    localStorage.setItem("autoClick", autoClick);
+  function cheatBtns() {
+    cookiesUp.textContent = `cookies+10000: ${cookieCount}`;
+    powerUp.textContent = `clickpwr+100: ${clickPower}`;
+    autoUp.textContent = `autopwr+10: ${autoClickPower}`;
   }
+  cheatBtns();
+  cookieUpdate(autoClickPower);
   saveStats();
-  console.log(`saved ${cookieCount}, ${clickPower}, ${autoClick}`);
 }
 function upgrade() {}
 
