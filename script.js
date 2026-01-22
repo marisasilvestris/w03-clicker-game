@@ -6,11 +6,17 @@ let cookieCount = 0;
 let autoClick;
 
 function gameInit() {
+  let store = Number(localStorage.getItem("cookieCount"));
+  if (typeof store === "number") {
+    cookieCount = store;
+  } else {
+    cookieCount = 0;
+  }
   const cookieCountDisplay = document.getElementById(`counter`);
   cookieCountDisplay.textContent = `${cookieCount}`;
 
   function cookieUpdate(e) {
-    cookieCount = cookieCount + e;
+    cookieCount = cookieCount + Number(e);
     cookieCountDisplay.textContent = `${cookieCount}`;
     console.log(cookieCount);
   }
@@ -22,9 +28,7 @@ function gameInit() {
 function gameUpdate() {
   localStorage.setItem("cookieCount", cookieCount);
   const store = localStorage.getItem("cookieCount");
-  console.log(store);
-
-  console.log(`update`);
+  console.log(Number(store));
 }
 gameInit();
 setInterval(gameUpdate, 1000);
