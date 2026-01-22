@@ -1,0 +1,28 @@
+#bongocat {
+  max-width: 200px;
+  position: absolute;
+  right: 30px;
+  top: 30px;
+  background-color: black;
+  border-radius: 15px;
+  border: 2px solid black;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: none;
+}
+#bongocat img {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+#bongocat figcaption {
+  font-weight: bold;
+  font-family: sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
