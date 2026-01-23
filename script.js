@@ -61,7 +61,7 @@ async function gameInit() {
           cookieUpdate(-e.cost);
           autoClickPower = autoClickPower + e.increase;
           upgradeList[e.name]++;
-          console.log(`${upgradeList[e.name]}`);
+          listItemBtn.textContent = `${upgradeList[e.name]} ${e.name}. cost:${e.cost}. cps increase:${e.increase}`;
         } else {
           console.log(`you need ${e.cost} cookies!`);
         }
