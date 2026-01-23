@@ -74,6 +74,9 @@ async function gameInit() {
     cookieUpdate(clickPower);
   });
 
+  sideViewBtn.addEventListener(`click`, () => {
+    sideViewBtn.classList = ``;
+  });
   clrBtn.addEventListener(`click`, () => {
     cookieCount = 0;
     clickPower = 1;
