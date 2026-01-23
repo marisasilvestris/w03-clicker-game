@@ -58,6 +58,7 @@ async function gameInit() {
       listItemBtn.addEventListener(`click`, () => {
         if (cookieCount >= e.cost) {
           cookieUpdate(-e.cost);
+          autoClickPower = autoClickPower + e.increase;
           upgradeList[e.name]++;
           console.log(`${upgradeList[e.name]}`);
         } else {
@@ -75,10 +76,10 @@ async function gameInit() {
   });
 
   sideViewBtn.addEventListener(`click`, () => {
-    if (sideView.classList.contains(`hidden`)) {
-      sideView.classList = ``;
+    if (sideView.style.display === `none`) {
+      sideView.style.display = `flex`;
     } else {
-      sideView.classList = `hidden`;
+      sideView.style.display = `none`;
     }
   });
 
@@ -123,4 +124,4 @@ function gameUpdate() {
 
 gameInit();
 setInterval(gameUpdate, 1000);
-setInterval(cookieUpdate.bind(null, 0), 100);
+setInterval(cookieUpdate.bind(null, 0), 300);

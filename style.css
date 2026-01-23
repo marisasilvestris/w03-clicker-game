@@ -79,6 +79,7 @@ h2 {
   gap: 15px;
   height: 100%;
   overflow-y: auto;
+  border: 2px solid black;
 }
 #sideView .shop-item {
   height: 100px;
@@ -117,14 +118,9 @@ h2 {
     top: 0;
     width: 100%;
   }
-  .hidden {
-    display: none !important;
-  }
 }
 
 /* test stuff */
-.test {
-}
 #cheatBtns {
   position: absolute;
   top: 64px;
