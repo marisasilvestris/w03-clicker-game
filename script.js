@@ -7,6 +7,7 @@ const sideViewBtn = document.getElementById(`sideViewBtn`);
 const sideView = document.getElementById(`sideView`);
 const shopList = document.getElementById(`shopList`);
 
+const cookiesUpSmall = document.getElementById(`cookiesUpSmall`);
 const cookiesUp = document.getElementById(`cookiesUp`);
 const powerUp = document.getElementById(`powerUp`);
 const autoUp = document.getElementById(`autoUp`);
@@ -76,7 +77,7 @@ async function gameInit() {
   });
 
   sideViewBtn.addEventListener(`click`, () => {
-    if (sideView.style.display === `none`) {
+    if (getComputedStyle(sideView).display === `none`) {
       sideView.style.display = `flex`;
     } else {
       sideView.style.display = `none`;
@@ -95,6 +96,9 @@ async function gameInit() {
   });
 
   function cheatBtns() {
+    cookiesUpSmall.addEventListener(`click`, () => {
+      cookieCount = cookieCount + 100;
+    });
     cookiesUp.addEventListener(`click`, () => {
       cookieCount = cookieCount + 10000;
     });

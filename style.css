@@ -45,6 +45,7 @@ h2 {
   right: 0;
   width: 128px;
   height: 64px;
+  z-index: 1;
 }
 #clickerButton {
   width: 250px;
@@ -111,12 +112,13 @@ h2 {
     flex-flow: column-reverse;
   }
   #mainView #sideViewBtn {
-    display: initial;
+    display: static;
   }
   #clickerGame #sideView {
     position: absolute;
     top: 0;
     width: 100%;
+    display: none;
   }
 }
 
