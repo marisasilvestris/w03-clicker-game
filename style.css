@@ -43,6 +43,8 @@ h2 {
   position: absolute;
   bottom: 0;
   right: 0;
+  width: 128px;
+  height: 64px;
 }
 #clickerButton {
   width: 250px;
@@ -114,7 +116,9 @@ h2 {
     position: absolute;
     top: 0;
     width: 100%;
-    display: none;
+  }
+  .hidden {
+    display: none !important;
   }
 }
 
