@@ -10,25 +10,25 @@
     <style>
       /* Test colours */
       .red {
-        background-color: palevioletred;
+        background-color: rgb(235, 174, 188);
       }
       .orange {
-        background-color: orange;
+        background-color: rgb(255, 202, 187);
       }
       .yellow {
-        background-color: palegoldenrod;
+        background-color: lemonchiffon;
       }
       .green {
-        background-color: lightgreen;
+        background-color: rgb(200, 220, 190);
       }
       .blue {
-        background-color: cyan;
+        background-color: rgb(195, 222, 235);
       }
       .indigo {
-        background-color: cornflowerblue;
+        background-color: rgb(151, 171, 212);
       }
       .violet {
-        background-color: mediumpurple;
+        background-color: rgb(225, 182, 219);
       }
     </style>
   </head>
@@ -42,14 +42,15 @@
       <section id="mainView">
         <button id="sideViewBtn">Open panel</button>
         <h2>clicky!</h2>
-        <button id="clickerButton" class="blue"></button>
+        <button id="clickerButton" class="violet"></button>
         <div id="cpsCounter"></div>
         <div id="cookieCounter"></div>
       </section>
       <section id="sideView">
         <h2>shoppe!</h2>
         <div id="listContainer">
-          <ul id="shopList"></ul>
+          <ul id="shopList" class="shop-list"></ul>
+          <ul id="shopList2" class="shop-list"></ul>
         </div>
         <div>
           <p>
