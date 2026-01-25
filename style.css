@@ -6,9 +6,9 @@
   font-family: sans-serif;
   list-style-type: none;
 }
-/* :focus {
+:focus {
   border: 10px solid white;
-} */
+}
 h1 {
   position: absolute;
   top: 0;
@@ -106,6 +106,8 @@ h2 {
 .shop-item .item-cost {
 }
 .shop-item .item-count {
+  grid-row-start: 1;
+  grid-column-start: 3;
 }
 
 @media (max-width: 800px) {
@@ -137,4 +139,28 @@ h2 {
 }
 .powerup:active {
   background-color: white;
+}
+
+@keyframes falling {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(110vh);
+  }
+}
+.cookie {
+  background-image: url("./img/ui/yarn-sml.png");
+  animation-iteration-count: infinite;
+  animation-play-state: running;
+}
+.cookie {
+  position: fixed;
+  top: -10%;
+  z-index: 999;
+  cursor: default;
+  user-select: none;
+  animation-name: falling;
+  animation-duration: 5s;
+  animation-timing-function: ease-in-out;
 }

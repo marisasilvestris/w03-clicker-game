@@ -14,47 +14,47 @@ const powerUp = document.getElementById(`powerUp`);
 const autoUp = document.getElementById(`autoUp`);
 
 const upgradeImgList = {
-  [`Auto-Clicker`]: `./img/bongocat.jpg`,
-  [`Enhanced Oven`]: `./img/bongocat.jpg`,
-  [`Cookie Farm`]: `./img/bongocat.jpg`,
-  [`Robot Baker`]: `./img/bongocat.jpg`,
-  [`Cookie Factory`]: `./img/bongocat.jpg`,
-  [`Magic Flour`]: `./img/bongocat.jpg`,
-  [`Time Machine`]: `./img/bongocat.jpg`,
-  [`Quantum Oven`]: `./img/bongocat.jpg`,
-  [`Alien Technology`]: `./img/bongocat.jpg`,
-  [`Interdimensional Baker`]: `./img/bongocat.jpg`,
+  [`ball o' wool`]: `./img/upgrades/wool.png`,
+  [`claw sharpener`]: `./img/upgrades/claw.png`,
+  [`cat grass`]: `./img/upgrades/grass.png`,
+  [`jingly bell toy`]: `./img/upgrades/toy.png`,
+  [`cool collar`]: `./img/upgrades/collar.png`,
+  [`kitty kibble`]: `./img/upgrades/kibble.png`,
+  [`catnip`]: `./img/upgrades/catnip.png`,
+  [`fur brush`]: `./img/upgrades/brush.png`,
+  [`comfy bed`]: `./img/upgrades/bed.png`,
+  [`golden bell`]: `./img/upgrades/bell.png`,
 };
-const bonusUpgradeList = [
-  {
-    id: 1,
-    name: "Finger Training",
-    cost: 1000,
-    increase: 1,
-    img: `./img/upgrades/bonus1.png`,
-  },
-  {
-    id: 2,
-    name: "Reinforced Mouse Button",
-    cost: 100000,
-    increase: 10,
-    img: `./img/upgrades/bonus2.png`,
-  },
-  {
-    id: 3,
-    name: "A Gun Made Of Clicking",
-    cost: 10000000,
-    increase: 100,
-    img: `./img/upgrades/bonus3.png`,
-  },
-  {
-    id: 4,
-    name: "Frankly Unfriendly Amounts Of Clicks",
-    cost: 1000000000,
-    increase: 10000,
-    img: `./img/upgrades/bonus4.png`,
-  },
-];
+// const bonusUpgradeList = [
+//   {
+//     id: 1,
+//     name: "Finger Training",
+//     cost: 1000,
+//     increase: 1,
+//     img: `./img/upgrades/bonus1.png`,
+//   },
+//   {
+//     id: 2,
+//     name: "Reinforced Mouse Button",
+//     cost: 100000,
+//     increase: 10,
+//     img: `./img/upgrades/bonus2.png`,
+//   },
+//   {
+//     id: 3,
+//     name: "A Gun Made Of Clicking",
+//     cost: 10000000,
+//     increase: 100,
+//     img: `./img/upgrades/bonus3.png`,
+//   },
+//   {
+//     id: 4,
+//     name: "Frankly Unfriendly Amounts Of Clicks",
+//     cost: 1000000000,
+//     increase: 10000,
+//     img: `./img/upgrades/bonus4.png`,
+//   },
+// ];
 
 let cookieCount;
 let clickPower;
@@ -82,8 +82,9 @@ function cookieUpdate(c) {
 }
 
 async function gameInit() {
-  function buildButton(e, list) {
+  function buildButton(e, list, type) {
     const listItem = document.createElement(`li`);
+
     listItem.innerHTML = `<div class="shop-item" aria-label="button">
                 <img class="item-img" src="${upgradeImgList[e.name] || [e.img]}" />
                 <p class="item-name">Name:${e.name}</p>
@@ -91,13 +92,23 @@ async function gameInit() {
                 <p class="item-increase">Increase:${e.increase}</p>
                 <p class="item-count">Have:${upgradeList[e.name]}</p>
               </div>`; // i got supremely lazy here but i'll fix it one day!
+
     listItem.addEventListener(`click`, () => {
       if (cookieCount >= e.cost) {
         cookieUpdate(-e.cost); // spend cookies
-        autoClickPower = autoClickPower + e.increase;
-        console.log(e.increase);
+        upgradeList[e.name]++; // get upgrade
 
-        upgradeList[e.name]++;
+        switch (
+          type // changed this to a switch case to make it easier to add other types
+        ) {
+          case `bonus`:
+            clickPower = clickPower + e.increase;
+            break;
+          default:
+            autoClickPower = autoClickPower + e.increase;
+            break;
+        }
+
         listItem.innerHTML = `<div class="shop-item" aria-label="button">
                 <img class="item-img" src="./img/ui/yarn.png" />
                 <p class="item-name">Name:${e.name}</p>
@@ -106,27 +117,25 @@ async function gameInit() {
                 <p class="item-count">Have:${upgradeList[e.name]}</p>
               </div>`; // doubly lazy!
       } else {
-        console.log(`you need ${e.cost} cookies!`);
+        console.log(`you need ${e.cost - cookieCount} cookies!`);
       }
     });
     list.appendChild(listItem);
   }
-  async function fetchUpgrades(url) {
+  async function fetchUpgrades(url, type) {
     const response = await fetch(url);
     const jsonData = await response.json();
     jsonData.forEach((e) => {
       if (!upgradeList[e.name]) {
         upgradeList[e.name] = 0;
       }
-      buildButton(e, shopList);
-    });
-  }
-  async function fetchBonusUpgrades(array) {
-    array.forEach((e) => {
-      if (!upgradeList[e.name]) {
-        upgradeList[e.name] = 0;
+      if (type === "bonus") {
+        buildButton(e, shopList2, type);
+      } else {
+        buildButton(e, shopList, type);
       }
-      buildButton(e, shopList2);
+
+      console.log(upgradeList, type);
     });
   }
 
@@ -169,10 +178,10 @@ async function gameInit() {
     autoUp.textContent = `autopwr+10: ${autoClickPower || 0}`;
   }
 
-  fetchUpgrades(`https://cookie-upgrade-api.vercel.app/api/upgrades`);
+  fetchUpgrades(`https://msnicelupe.neocities.org/data.json`);
+  fetchUpgrades(`https://msnicelupe.neocities.org/bonus.json`, `bonus`);
   cheatBtns();
   loadStats();
-  fetchBonusUpgrades(bonusUpgradeList);
 }
 function gameUpdate() {
   function cheatBtns() {
