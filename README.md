@@ -13,15 +13,19 @@
 
 ### Stretch requirements
 
-🏹 Consolidate upgrade management by managing all upgrades in a single function.  
-🏹 Improve UX with animations, sound effects, or other visual effects.  
-🏹 Fantastic use of README to provide important information such as a description of the project, how to deploy and other app information.  
-🏹 Implement error handling using try/catch.  
-🏹 Create a menu for users to adjust game options like sound effects or display preferences.
+🟠 Consolidate upgrade management by managing all upgrades in a single function.  
+🔴 Improve UX with animations, sound effects, or other visual effects.  
+🔴 Fantastic use of README to provide important information such as a description of the project, how to deploy and other app information.  
+🔴 Implement error handling using try/catch.  
+🔴 Create a menu for users to adjust game options like sound effects or display preferences.
 
 ## Reflection
 
 > tl;dr
+
+### Thanks to
+
+https://github.com/pajasevi/CSSnowflakes
 
 ## To improve
 

@@ -1,5 +1,13 @@
 console.log(`meow! 🐈‍⬛`);
 
+// look into:
+const state = {
+  cookies: 100,
+  cps: 1,
+  purchases: [],
+};
+
+const html = document.querySelector(`html`);
 const clickerButton = document.getElementById(`clickerButton`);
 const cookieCountDisplay = document.getElementById(`cookieDisplay`);
 const cpsDisplay = document.getElementById(`cpsDisplay`);
@@ -56,14 +64,37 @@ function cookieUpdate(c) {
 async function gameInit() {
   function buildButton(e, list, type) {
     const listItem = document.createElement(`li`);
+    const itemContents = document.createElement(`div`);
+    const itemImg = document.createElement(`img`);
+    const itemName = document.createElement(`p`);
+    const itemCost = document.createElement(`p`);
+    const itemIncrease = document.createElement(`p`);
+    const itemOwned = document.createElement(`p`);
 
-    listItem.innerHTML = `<div class="shop-item" aria-label="button" tabindex="0">
-                <img class="item-img" src="${upgradeImgList[e.name] || [e.img]}" />
-                <p class="item-name">${e.name}</p>
-                <p class="item-cost">Cost:${e.cost}</p>
-                <p class="item-increase">Increase:${e.increase}</p>
-                <p class="item-count">Have:${upgradeList[e.name]}</p>
-              </div>`; // i got supremely lazy here but i'll fix it one day!
+    function buttonContents() {
+      itemImg.src = `${upgradeImgList[e.name] || [e.img]}`;
+      itemName.innerText = `Name: ${e.name}`;
+      itemCost.innerText = `Cost: ${e.cost}`;
+      itemIncrease.innerText = `Increase: ${e.increase}`;
+      itemOwned.innerText = `Owned: ${upgradeList[e.name]}`;
+    }
+
+    listItem.tabIndex = 0;
+    listItem.role = `button`;
+    itemContents.classList.add(`shop-item`);
+    itemImg.classList.add(`item-img`);
+    itemName.classList.add(`item-name`);
+    itemCost.classList.add(`item-cost`);
+    itemIncrease.classList.add(`item-increase`);
+    itemOwned.classList.add(`item-owned`);
+
+    buttonContents();
+    listItem.appendChild(itemContents);
+    itemContents.appendChild(itemImg);
+    itemContents.appendChild(itemName);
+    itemContents.appendChild(itemCost);
+    itemContents.appendChild(itemIncrease);
+    itemContents.appendChild(itemOwned);
 
     listItem.addEventListener(`click`, () => {
       if (cookieCount >= e.cost) {
@@ -81,14 +112,7 @@ async function gameInit() {
             cpsDisplay.textContent = `${clickPower}`;
             break;
         }
-
-        listItem.innerHTML = `<div class="shop-item" aria-label="button">
-                <img class="item-img" src="${upgradeImgList[e.name] || [e.img]}" />
-                <p class="item-name">${e.name}</p>
-                <p class="item-cost">Cost:${e.cost}</p>
-                <p class="item-increase">Increase:${e.increase}</p>
-                <p class="item-count">Have:${upgradeList[e.name]}</p>
-              </div>`; // doubly lazy!
+        buttonContents();
       } else {
         console.log(`you need ${e.cost - cookieCount} cookies!`);
       }
@@ -97,10 +121,10 @@ async function gameInit() {
   }
   async function fetchUpgrades(url, type) {
     const response = await fetch(url);
-    const jsonData = await response.json();
+    const jsonData = await response.json(); // genuinely made such a bollocks of this entire block, need to make this array-based so i don't have to do the Object.entries nonsense later. the original upgrade import even comes with an id for each item!
     jsonData.forEach((e) => {
       if (!upgradeList[e.name]) {
-        upgradeList[e.name] = 0;
+        upgradeList[e.name] = 0; // okay it works in practice but i don't know if this really does what i think it does. if object key doesn't exist, i create it with a value of 0 so it exists when i try to fiddle with it later?? i don't know what possessed me to do it this way
       }
       if (type === "bonus") {
         buildButton(e, shopList2, type);
@@ -110,16 +134,22 @@ async function gameInit() {
     });
   }
 
+  // async function fetchUpgrades(url, type) {
+  //   const res = await fetch(url)
+  //   data =
+  // }
+
   clickerButton.addEventListener(`click`, () => {
     const cookieDrop = document.createElement(`div`);
-    cookieUpdate(clickPower);
+
     cookieDrop.classList = `cookie`;
-    cookieDrop.style.left = `${Math.random() * 99}%`;
+    cookieDrop.style.left = `${Math.random() * 100}%`;
     cookieDrop.addEventListener(`animationend`, () => {
       console.log(`test`);
       cookieDrop.remove();
     });
-    clickerButton.append(cookieDrop);
+    html.append(cookieDrop);
+    cookieUpdate(clickPower);
   });
   sideViewBtn.addEventListener(`click`, () => {
     if (getComputedStyle(sideView).display === `none`) {
@@ -157,22 +187,20 @@ async function gameInit() {
     autoUp.textContent = `autopwr+10: ${autoClickPower || 0}`;
   }
 
-  fetchUpgrades(`https://msnicelupe.neocities.org/data.json`);
+  fetchUpgrades(`https://msnicelupe.neocities.org/data.json`); // apologies for replacing the original source, i just wanted to change the names over the weekend without bothering sam (':
+  // (i was tempted to do some horrible switch statement to replace each of the names at import but i Didn't Want To)
   fetchUpgrades(`https://msnicelupe.neocities.org/bonus.json`, `bonus`);
   cheatBtns();
   loadStats();
 }
 function gameUpdate() {
-  function cheatBtns() {
-    cookiesUp.textContent = `cookies+10000: ${cookieCount}`;
-    powerUp.textContent = `clickpwr+100: ${clickPower}`;
-    autoUp.textContent = `autopwr+10: ${autoClickPower}`;
-  }
-  cheatBtns();
   cookieUpdate(autoClickPower);
+  saveStats();
+  cookiesUp.textContent = `cookies+10000: ${cookieCount}`;
+  powerUp.textContent = `clickpwr+100: ${clickPower}`;
+  autoUp.textContent = `autopwr+10: ${autoClickPower}`;
   cpsDisplay.textContent = `${autoClickPower}`;
   powerDisplay.textContent = `${clickPower}`;
-  saveStats();
 }
 
 gameInit();
