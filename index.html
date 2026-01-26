@@ -21,30 +21,22 @@
       .green {
         background-color: rgb(200, 220, 190);
       }
-      .blue {
-        background-color: rgb(195, 222, 235);
-      }
-      .indigo {
-        background-color: rgb(151, 171, 212);
-      }
-      .violet {
-        background-color: rgb(225, 182, 219);
-      }
     </style>
   </head>
   <body>
     <figure id="bongocat">
       <img src="./img/bongocat.jpg" />
-      <figcaption class="rainbow">i love you, bongo cat</figcaption>
+      <figcaption>i love you, bongo cat</figcaption>
     </figure>
     <header><h1>w03 kitty clicker!</h1></header>
     <main id="clickerGame">
       <section id="mainView">
-        <button id="sideViewBtn">Open panel</button>
+        <button id="sideViewBtn">Open/close panel</button>
         <h2>clicky!</h2>
-        <button id="clickerButton" class="violet"></button>
-        <div id="cpsCounter"></div>
-        <div id="cookieCounter"></div>
+        <button id="clickerButton"></button>
+        <p>Click Power: <span id="powerDisplay">0</span></p>
+        <p>Cookies Per Second: <span id="cpsDisplay">0</span></p>
+        <p>Cookies: <span id="cookieDisplay">0</span></p>
       </section>
       <section id="sideView">
         <h2>shoppe!</h2>
@@ -53,10 +45,7 @@
           <ul id="shopList2" class="shop-list"></ul>
         </div>
         <div>
-          <p>
-            <img src="./img/bongocat.jpg" style="width: 150px; height: 100px" />
-            testing placeholder
-          </p>
+          <p></p>
           <button id="clrBtn">clear stats!</button>
         </div>
       </section>

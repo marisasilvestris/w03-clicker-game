@@ -1,7 +1,9 @@
 console.log(`meow! 🐈‍⬛`);
 
 const clickerButton = document.getElementById(`clickerButton`);
-const cookieCountDisplay = document.getElementById(`cookieCounter`);
+const cookieCountDisplay = document.getElementById(`cookieDisplay`);
+const cpsDisplay = document.getElementById(`cpsDisplay`);
+const powerDisplay = document.getElementById(`powerDisplay`);
 const clrBtn = document.getElementById(`clrBtn`);
 const sideViewBtn = document.getElementById(`sideViewBtn`);
 const sideView = document.getElementById(`sideView`);
@@ -14,7 +16,7 @@ const powerUp = document.getElementById(`powerUp`);
 const autoUp = document.getElementById(`autoUp`);
 
 const upgradeImgList = {
-  [`ball o' wool`]: `./img/upgrades/wool.png`,
+  [`ball o' wool`]: `./img/upgrades/ball.png`,
   [`claw sharpener`]: `./img/upgrades/claw.png`,
   [`cat grass`]: `./img/upgrades/grass.png`,
   [`jingly bell toy`]: `./img/upgrades/toy.png`,
@@ -25,36 +27,6 @@ const upgradeImgList = {
   [`comfy bed`]: `./img/upgrades/bed.png`,
   [`golden bell`]: `./img/upgrades/bell.png`,
 };
-// const bonusUpgradeList = [
-//   {
-//     id: 1,
-//     name: "Finger Training",
-//     cost: 1000,
-//     increase: 1,
-//     img: `./img/upgrades/bonus1.png`,
-//   },
-//   {
-//     id: 2,
-//     name: "Reinforced Mouse Button",
-//     cost: 100000,
-//     increase: 10,
-//     img: `./img/upgrades/bonus2.png`,
-//   },
-//   {
-//     id: 3,
-//     name: "A Gun Made Of Clicking",
-//     cost: 10000000,
-//     increase: 100,
-//     img: `./img/upgrades/bonus3.png`,
-//   },
-//   {
-//     id: 4,
-//     name: "Frankly Unfriendly Amounts Of Clicks",
-//     cost: 1000000000,
-//     increase: 10000,
-//     img: `./img/upgrades/bonus4.png`,
-//   },
-// ];
 
 let cookieCount;
 let clickPower;
@@ -85,9 +57,9 @@ async function gameInit() {
   function buildButton(e, list, type) {
     const listItem = document.createElement(`li`);
 
-    listItem.innerHTML = `<div class="shop-item" aria-label="button">
+    listItem.innerHTML = `<div class="shop-item" aria-label="button" tabindex="0">
                 <img class="item-img" src="${upgradeImgList[e.name] || [e.img]}" />
-                <p class="item-name">Name:${e.name}</p>
+                <p class="item-name">${e.name}</p>
                 <p class="item-cost">Cost:${e.cost}</p>
                 <p class="item-increase">Increase:${e.increase}</p>
                 <p class="item-count">Have:${upgradeList[e.name]}</p>
@@ -106,12 +78,13 @@ async function gameInit() {
             break;
           default:
             autoClickPower = autoClickPower + e.increase;
+            cpsDisplay.textContent = `${clickPower}`;
             break;
         }
 
         listItem.innerHTML = `<div class="shop-item" aria-label="button">
-                <img class="item-img" src="./img/ui/yarn.png" />
-                <p class="item-name">Name:${e.name}</p>
+                <img class="item-img" src="${upgradeImgList[e.name] || [e.img]}" />
+                <p class="item-name">${e.name}</p>
                 <p class="item-cost">Cost:${e.cost}</p>
                 <p class="item-increase">Increase:${e.increase}</p>
                 <p class="item-count">Have:${upgradeList[e.name]}</p>
@@ -134,13 +107,19 @@ async function gameInit() {
       } else {
         buildButton(e, shopList, type);
       }
-
-      console.log(upgradeList, type);
     });
   }
 
   clickerButton.addEventListener(`click`, () => {
+    const cookieDrop = document.createElement(`div`);
     cookieUpdate(clickPower);
+    cookieDrop.classList = `cookie`;
+    cookieDrop.style.left = `${Math.random() * 99}%`;
+    cookieDrop.addEventListener(`animationend`, () => {
+      console.log(`test`);
+      cookieDrop.remove();
+    });
+    clickerButton.append(cookieDrop);
   });
   sideViewBtn.addEventListener(`click`, () => {
     if (getComputedStyle(sideView).display === `none`) {
@@ -191,9 +170,10 @@ function gameUpdate() {
   }
   cheatBtns();
   cookieUpdate(autoClickPower);
+  cpsDisplay.textContent = `${autoClickPower}`;
+  powerDisplay.textContent = `${clickPower}`;
   saveStats();
 }
 
 gameInit();
 setInterval(gameUpdate, 1000);
-setInterval(cookieUpdate.bind(null, 0), 300);
