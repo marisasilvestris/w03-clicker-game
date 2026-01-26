@@ -85,16 +85,30 @@ h2 {
 
 #sideView {
   display: flex;
+  position: relative;
   flex-flow: column nowrap;
   align-items: center;
   flex-grow: 1;
   height: 100%;
   background-color: var(--blue);
 }
+/* content warning, please don't look */
+#sideView h3 {
+  color: red;
+  position: absolute;
+  left: 50px;
+  top: 10px; /* this was an awful hack-job because i'd forgotten to arrange a sensible and easy way to have shop headers */
+}
+#sideView h3:nth-of-type(2) {
+  left: initial;
+  right: 50px;
+}
+
 #listContainer {
   width: 100%;
   padding: 20px;
   display: flex;
+  gap: 10px;
   flex-flow: row nowrap;
   overflow: hidden;
 }
@@ -110,7 +124,8 @@ h2 {
   height: 100px;
   width: 100%;
   display: grid;
-  grid-template-columns: 100px 1fr 1fr;
+  grid-template-columns: 100px auto auto;
+  grid-template-rows: auto auto auto;
   border: 3px solid black;
   border-radius: 8px;
   overflow: hidden;
@@ -121,18 +136,24 @@ h2 {
 }
 .shop-item .item-img {
   width: 100%;
+  grid-area: 1 / 1 / -1 / 1;
   border-right: 3px solid black;
 }
 .shop-item .item-name {
+  grid-area: 1 / 2 / 1 / 2;
 }
 .shop-item .item-cost {
+  grid-area: 1 / 3 / 1 / 3;
 }
 .shop-item .item-increase {
+  grid-area: 2 / 2 / 2 / 2;
 }
 .shop-item .item-owned {
+  grid-area: 3 / 2 / 3 / 3;
 }
 
 @media (max-width: 800px) {
+  /* i know i should have done it mobile-first but i'm old. at least it was easy! */
   #mainView {
     flex-flow: column-reverse;
   }
@@ -143,7 +164,30 @@ h2 {
     position: absolute;
     top: 0;
     width: 100%;
-    display: none;
+    /* display: none; */
+  }
+  #sideView .shop-item {
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto auto auto;
+    height: auto;
+  }
+  .shop-item .item-img {
+    width: 100%;
+    grid-area: 1 / 1 / 1 / -1;
+    border-right: 0;
+    border-bottom: 3px solid black;
+  }
+  .shop-item .item-name {
+    grid-area: 2/1/2/-1;
+  }
+  .shop-item .item-cost {
+    grid-area: 3/1/3/1;
+  }
+  .shop-item .item-increase {
+    grid-area: 3/2/3/2;
+  }
+  .shop-item .item-owned {
+    grid-area: 4 / 1 / 4 / 2;
   }
 }
 

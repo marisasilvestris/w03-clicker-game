@@ -18,10 +18,10 @@ const sideView = document.getElementById(`sideView`);
 const shopList = document.getElementById(`shopList`);
 const shopList2 = document.getElementById(`shopList2`);
 
-const cookiesUpSmall = document.getElementById(`cookiesUpSmall`);
-const cookiesUp = document.getElementById(`cookiesUp`);
-const powerUp = document.getElementById(`powerUp`);
-const autoUp = document.getElementById(`autoUp`);
+// const cookiesUpSmall = document.getElementById(`cookiesUpSmall`);
+// const cookiesUp = document.getElementById(`cookiesUp`);
+// const powerUp = document.getElementById(`powerUp`);
+// const autoUp = document.getElementById(`autoUp`);
 
 const upgradeImgList = {
   [`ball o' wool`]: `./img/upgrades/ball.png`,
@@ -49,6 +49,7 @@ function loadStats() {
 }
 
 function saveStats() {
+  // TODO: roll these bad boys into one
   localStorage.setItem(`cookieCount`, cookieCount);
   localStorage.setItem(`clickPower`, clickPower);
   localStorage.setItem(`autoClickPower`, autoClickPower);
@@ -73,14 +74,14 @@ async function gameInit() {
 
     function buttonContents() {
       itemImg.src = `${upgradeImgList[e.name] || [e.img]}`;
-      itemName.innerText = `Name: ${e.name}`;
+      itemName.innerText = `${e.name}`;
       itemCost.innerText = `Cost: ${e.cost}`;
       itemIncrease.innerText = `Increase: ${e.increase}`;
       itemOwned.innerText = `Owned: ${upgradeList[e.name]}`;
     }
 
-    listItem.tabIndex = 0;
-    listItem.role = `button`;
+    itemContents.tabIndex = 0;
+    // itemContents.role = `button`;
     itemContents.classList.add(`shop-item`);
     itemImg.classList.add(`item-img`);
     itemName.classList.add(`item-name`);
@@ -94,12 +95,12 @@ async function gameInit() {
     itemContents.appendChild(itemName);
     itemContents.appendChild(itemCost);
     itemContents.appendChild(itemIncrease);
-    itemContents.appendChild(itemOwned);
+    itemContents.appendChild(itemOwned); // sorry
 
     listItem.addEventListener(`click`, () => {
       if (cookieCount >= e.cost) {
-        cookieUpdate(-e.cost); // spend cookies
-        upgradeList[e.name]++; // get upgrade
+        cookieUpdate(-e.cost); // spend money
+        upgradeList[e.name]++; // get honeys
 
         switch (
           type // changed this to a switch case to make it easier to add other types
@@ -137,7 +138,7 @@ async function gameInit() {
   // async function fetchUpgrades(url, type) {
   //   const res = await fetch(url)
   //   data =
-  // }
+  // } // hey look i'll get around to rewriting it
 
   clickerButton.addEventListener(`click`, () => {
     const cookieDrop = document.createElement(`div`);
@@ -145,9 +146,9 @@ async function gameInit() {
     cookieDrop.classList = `cookie`;
     cookieDrop.style.left = `${Math.random() * 100}%`;
     cookieDrop.addEventListener(`animationend`, () => {
-      console.log(`test`);
       cookieDrop.remove();
     });
+
     html.append(cookieDrop);
     cookieUpdate(clickPower);
   });
