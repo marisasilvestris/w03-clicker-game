@@ -71,6 +71,7 @@ async function gameInit() {
     const itemCost = document.createElement(`p`);
     const itemIncrease = document.createElement(`p`);
     const itemOwned = document.createElement(`p`);
+    const toastRack = document.getElementById(`toastRack`);
 
     function buttonContents() {
       itemImg.src = `${upgradeImgList[e.name] || [e.img]}`;
@@ -115,7 +116,14 @@ async function gameInit() {
         }
         buttonContents();
       } else {
-        console.log(`you need ${e.cost - cookieCount} cookies!`);
+        const toast = document.createElement(`li`);
+        toast.classList.add(`toast`);
+        toastRack.appendChild(toast);
+        toast.innerHTML = `you need ${e.cost - cookieCount} cookies!`;
+
+        setTimeout(() => {
+          toast.remove();
+        }, 3000);
       }
     });
     list.appendChild(listItem);
@@ -125,7 +133,7 @@ async function gameInit() {
     const jsonData = await response.json(); // genuinely made such a bollocks of this entire block, need to make this array-based so i don't have to do the Object.entries nonsense later. the original upgrade import even comes with an id for each item!
     jsonData.forEach((e) => {
       if (!upgradeList[e.name]) {
-        upgradeList[e.name] = 0; // okay it works in practice but i don't know if this really does what i think it does. if object key doesn't exist, i create it with a value of 0 so it exists when i try to fiddle with it later?? i don't know what possessed me to do it this way
+        upgradeList[e.name] = 0; // okay it works in practice but i don't know if this really does what i think it does: if object key doesn't exist, i create it with a value of 0 so it exists when i try to fiddle with it later?? i don't know what possessed me to do it this way
       }
       if (type === "bonus") {
         buildButton(e, shopList2, type);

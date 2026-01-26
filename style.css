@@ -11,6 +11,7 @@
   background-color: white;
 }
 :root {
+  --border: black;
   --red: rgb(235, 174, 188);
   --orange: rgb(255, 202, 187);
   --yellow: lemonchiffon;
@@ -18,7 +19,8 @@
   --blue: rgb(195, 222, 235);
   --indigo: rgb(151, 171, 212);
   --violet: rgb(225, 182, 219);
-  background: var(--primary-colour);
+  --purple: mediumpurple;
+  --aquamarine: var(--aquamarine) background: var(--primary-colour);
 }
 h1 {
   position: absolute;
@@ -26,6 +28,7 @@ h1 {
   width: 100%;
   text-align: center;
   z-index: 1;
+  display: none;
 }
 h2 {
   padding: 5px 15px;
@@ -51,6 +54,7 @@ h2 {
   position: relative;
   color: mediumpurple;
   font-weight: bold;
+  border-right: 3px solid var(--border);
 }
 #sideViewBtn {
   position: absolute;
@@ -94,7 +98,6 @@ h2 {
 }
 /* content warning, please don't look */
 #sideView h3 {
-  color: red;
   position: absolute;
   left: 50px;
   top: 10px; /* this was an awful hack-job because i'd forgotten to arrange a sensible and easy way to have shop headers */
@@ -126,10 +129,10 @@ h2 {
   display: grid;
   grid-template-columns: 100px auto auto;
   grid-template-rows: auto auto auto;
-  border: 3px solid black;
+  border: 3px solid var(--border);
   border-radius: 8px;
   overflow: hidden;
-  background-color: aquamarine;
+  background-color: var(--aquamarine);
 }
 #sideView .shop-item:active {
   background-color: white;
@@ -137,10 +140,11 @@ h2 {
 .shop-item .item-img {
   width: 100%;
   grid-area: 1 / 1 / -1 / 1;
-  border-right: 3px solid black;
+  border-right: 3px solid var(--border);
 }
 .shop-item .item-name {
   grid-area: 1 / 2 / 1 / 2;
+  font-weight: bold;
 }
 .shop-item .item-cost {
   grid-area: 1 / 3 / 1 / 3;
@@ -153,9 +157,10 @@ h2 {
 }
 
 @media (max-width: 800px) {
-  /* i know i should have done it mobile-first but i'm old. at least it was easy! */
+  /* i know i should have done it mobile-first but i'm old. at least it was easy! ish */
   #mainView {
     flex-flow: column-reverse;
+    border: 0;
   }
   #sideViewBtn {
     display: static;
@@ -164,7 +169,7 @@ h2 {
     position: absolute;
     top: 0;
     width: 100%;
-    /* display: none; */
+    display: none;
   }
   #sideView .shop-item {
     grid-template-columns: auto auto;
@@ -175,7 +180,7 @@ h2 {
     width: 100%;
     grid-area: 1 / 1 / 1 / -1;
     border-right: 0;
-    border-bottom: 3px solid black;
+    border-bottom: 3px solid var(--border);
   }
   .shop-item .item-name {
     grid-area: 2/1/2/-1;
@@ -191,23 +196,7 @@ h2 {
   }
 }
 
-/* test stuff */
-#cheatBtns {
-  position: absolute;
-  top: 64px;
-  left: 0;
-  display: flex;
-  flex-flow: column nowrap;
-  display: none;
-}
-#cheatBtns button {
-  width: 128px;
-  height: 64px;
-}
-.powerup:active {
-  background-color: white;
-}
-
+/* huge respect to pajasevi@github */
 @keyframes falling {
   0% {
     transform: translateY(0);
@@ -231,4 +220,40 @@ h2 {
   animation-timing-function: ease-in;
   animation-iteration-count: 1;
   animation-play-state: running;
+}
+
+#toastRack {
+  position: absolute;
+  display: flex;
+  flex-flow: column-reverse nowrap;
+  gap: 5px;
+  bottom: 0;
+  left: 0;
+  padding: 15px;
+  z-index: 999;
+}
+.toast {
+  padding: 10px;
+  background-color: var(--purple);
+  color: white;
+  font-weight: bold;
+  border: 3px solid var(--border);
+  border-radius: 15px;
+}
+
+/* test stuff */
+#cheatBtns {
+  position: absolute;
+  top: 64px;
+  left: 0;
+  display: flex;
+  flex-flow: column nowrap;
+  display: none;
+}
+#cheatBtns button {
+  width: 128px;
+  height: 64px;
+}
+.powerup:active {
+  background-color: white;
 }
