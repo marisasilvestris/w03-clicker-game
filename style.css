@@ -22,6 +22,12 @@
   --purple: mediumpurple;
   --aquamarine: var(--aquamarine) background: var(--primary-colour);
 }
+#headings {
+  display: flex;
+  width: 100%;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+}
 h1 {
   position: absolute;
   top: 0;
@@ -30,8 +36,9 @@ h1 {
   z-index: 1;
   display: none;
 }
-h2 {
-  padding: 5px 15px;
+h2,
+h3 {
+  padding: 15px;
   border-radius: 20px;
   color: white;
   background-color: black;
@@ -95,16 +102,6 @@ h2 {
   flex-grow: 1;
   height: 100%;
   background-color: var(--blue);
-}
-/* content warning, please don't look */
-#sideView h3 {
-  position: absolute;
-  left: 50px;
-  top: 10px; /* this was an awful hack-job because i'd forgotten to arrange a sensible and easy way to have shop headers */
-}
-#sideView h3:nth-of-type(2) {
-  left: initial;
-  right: 50px;
 }
 
 #listContainer {
