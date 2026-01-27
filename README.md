@@ -47,7 +47,7 @@ https://github.com/pajasevi/CSSnowflakes
 ## To improve
 
 TIME MANAGEMENT. Stop arsing about with bells, whistles, and hare-brained attempts to improve and iterate too much. Just get it on the page and deal with the consequences later.  
-A little more reading on grid and flex wouldn't hurt, I would like a more intuitive knowledge of their behaviour.
+A little more reading on grid and flex wouldn't hurt, I would like a more intuitive knowledge of their behaviour.  
 I am **unbelievably** bad at using arrays and objects, as evidenced by my malappropriation of them.  
 Reduce redundancy  
 Reduce redundancy
