@@ -12,6 +12,7 @@
 }
 :root {
   --border: black;
+  --light: white;
   --red: rgb(235, 174, 188);
   --orange: rgb(255, 202, 187);
   --yellow: lemonchiffon;
@@ -40,8 +41,8 @@ h2,
 h3 {
   padding: 15px;
   border-radius: 20px;
-  color: white;
-  background-color: black;
+  color: var(--light);
+  background-color: var(--border);
 }
 
 #clickerGame {
@@ -59,7 +60,7 @@ h3 {
   height: 100%;
   background-color: var(--yellow);
   position: relative;
-  color: mediumpurple;
+  color: var(--purple);
   font-weight: bold;
   border-right: 3px solid var(--border);
 }
@@ -83,7 +84,7 @@ h3 {
   background-image: url("./img/bongocat.jpg");
   background-size: cover;
   background-color: transparent;
-  border: 3px solid black;
+  border: 3px solid var(--border);
   border-radius: 15px;
 }
 #clickerButton:active {
@@ -139,7 +140,7 @@ h3 {
   background-color: var(--aquamarine);
 }
 #sideView .shop-item:active {
-  background-color: white;
+  background-color: var(--light);
 }
 .shop-item .item-img {
   width: 100%;
@@ -249,7 +250,7 @@ h3 {
 .toast {
   padding: 10px;
   background-color: var(--purple);
-  color: white;
+  color: var(--light);
   font-weight: bold;
   border: 3px solid var(--border);
   border-radius: 15px;
@@ -269,5 +270,5 @@ h3 {
   height: 64px;
 }
 .powerup:active {
-  background-color: white;
+  background-color: var(--light);
 }
