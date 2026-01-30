@@ -81,7 +81,7 @@ h3 {
 #clickerButton {
   width: 250px;
   height: 250px;
-  background-image: url("./img/bongocat.jpg");
+  background-image: url("./img/bongocat.jpg"); /* shout-out my homie bongo cat, © irox games */
   background-size: cover;
   background-color: transparent;
   border: 3px solid var(--border);

@@ -42,7 +42,8 @@ As always, comments in the code.
 ### Thanks to
 
 Falling wool adapted from:  
-https://github.com/pajasevi/CSSnowflakes
+https://github.com/pajasevi/CSSnowflakes  
+Bongo Cat is copyright Irox Games, Marcel Zurawka, Julius Krüger.
 
 ## To improve
 
