@@ -83,7 +83,7 @@ h3 {
   background-image: url("./img/bongocat.jpg");
   background-size: cover;
   background-color: transparent;
-  border: 0;
+  border: 3px solid black;
   border-radius: 15px;
 }
 #clickerButton:active {
@@ -117,6 +117,7 @@ h3 {
   gap: 10px;
   flex-flow: row nowrap;
   overflow: hidden;
+  flex-grow: 1;
 }
 #listContainer .shop-list {
   display: flex;
@@ -157,6 +158,9 @@ h3 {
 }
 .shop-item .item-owned {
   grid-area: 3 / 2 / 3 / 3;
+}
+.bottom-spacer {
+  position: relative;
 }
 #clrBtn {
   border: 3px solid var(--border);

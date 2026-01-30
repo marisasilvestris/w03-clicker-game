@@ -18,6 +18,7 @@ const sideView = document.getElementById(`sideView`);
 const shopList = document.getElementById(`shopList`);
 const shopList2 = document.getElementById(`shopList2`);
 
+// cheats stuff
 // const cookiesUpSmall = document.getElementById(`cookiesUpSmall`);
 // const cookiesUp = document.getElementById(`cookiesUp`);
 // const powerUp = document.getElementById(`powerUp`);
