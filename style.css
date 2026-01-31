@@ -45,10 +45,19 @@ h3 {
   background-color: var(--border);
 }
 
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+}
 #clickerGame {
+  flex-grow: 1;
   display: flex;
   flex-flow: row nowrap;
-  height: 100vh;
+  height: 100%;
+  flex-grow: 1;
+  flex-shrink: 0;
   overflow: hidden;
 }
 #mainView {
@@ -176,6 +185,12 @@ h3 {
   #mainView {
     flex-flow: column-reverse;
     border: 0;
+  }
+  .bottom-spacer {
+    width: 100%;
+  }
+  #clrBtn {
+    left: 0;
   }
   #sideViewBtn {
     display: static;
