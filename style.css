@@ -47,6 +47,7 @@ h3 {
 
 html {
   height: 100%;
+  touch-action: manipulation;
 }
 body {
   height: 100%;
@@ -95,6 +96,7 @@ body {
   background-color: transparent;
   border: 3px solid var(--border);
   border-radius: 15px;
+  touch-action: manipulation;
 }
 #clickerButton:active {
   transform: scale(90%);
