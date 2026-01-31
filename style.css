@@ -87,6 +87,7 @@ body {
   background-color: var(--blue);
   margin-right: -3px;
   font-weight: bold;
+  color: var(--border);
 }
 #clickerButton {
   width: 250px;
@@ -180,6 +181,7 @@ body {
   background-color: var(--red);
   font-weight: bold;
   padding: 10px;
+  color: var(--border);
 }
 
 @media (max-width: 800px) {
